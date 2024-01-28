@@ -1,0 +1,12 @@
+{
+  "name": "test_deploy_minimal",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": "git@github.com:Tektech-fr/test_dune_back.git",
+  "author": "Benoît Vandanjon <benoit@vandanjon.fr>",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2"
+  }
+}
