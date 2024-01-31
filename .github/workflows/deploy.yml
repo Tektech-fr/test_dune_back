@@ -34,15 +34,15 @@ jobs:
           npm install
           git reset --hard
           
-      - name: 📂 Sync folders and files to the server
-        uses: appleboy/ssh-action@master
-        with:
-          username: ${{ secrets.SSH_USERNAME }}
-          host: ${{ secrets.SSH_HOST }}
-          port: ${{ secrets.SSH_PORT }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          script: |
-            cd /test
-            git pull origin production
-            npm install
-            npm run build
+      # - name: 📂 Sync folders and files to the server
+        # uses: appleboy/ssh-action@master
+        # with:
+        #   username: ${{ secrets.SSH_USERNAME }}
+        #   host: ${{ secrets.SSH_HOST }}
+        #   port: ${{ secrets.SSH_PORT }}
+        #   password: ${{ secrets.SSH_PASSWORD }}
+        #   script: |
+        #     cd /test
+        #     git pull origin production
+        #     npm install
+        #     npm run build
