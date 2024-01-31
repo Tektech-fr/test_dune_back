@@ -1,13 +1,11 @@
-name: Deploy on CPanel
+name: deploy to vps
 
 on:
   push:
-    branches:  [ "production" ]
-  pull_request:
-    branches:  [ "production" ]
+    branches: [production]
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -15,34 +13,11 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 2
-
-      - name: Use Node.js 20
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-
-      - name: Cache npm dependencies
-        uses: actions/cache@v3
-        id: cache-node-modules
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-
-      - name: 🔨 Install Dependencies
-        if: steps.npm-cache.outputs.cache-hit != 'true'
-        run: |
-          npm install
-          git reset --hard
-          
-      # - name: 📂 Sync folders and files to the server
-        # uses: appleboy/ssh-action@master
-        # with:
-        #   username: ${{ secrets.SSH_USERNAME }}
-        #   host: ${{ secrets.SSH_HOST }}
-        #   port: ${{ secrets.SSH_PORT }}
-        #   password: ${{ secrets.SSH_PASSWORD }}
-        #   script: |
-        #     cd /test
-        #     git pull origin production
-        #     npm install
-        #     npm run build
+      
+      - name: deploy
+        uses: easingthemes/ssh-deploy@v2.1.4
+        env:
+	        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.SSH_HOST }}
+          REMOTE_USER: ${{ secrets.SSH_USERNAME }}
+          REMOTE_PORT: ${{ secrets.SSH_PORT}}
