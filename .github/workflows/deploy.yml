@@ -20,6 +20,7 @@ jobs:
       uses: webfactory/ssh-agent@v0.5.3
       with:
         ssh-private-key: ${{ secrets.T_PRIVATEKEY }}
+        ssh-passphrase: ${{ secrets.T_PASSPHRASE }}
 
     - name: SSH into Host and check connection
       run: ssh -o StrictHostKeyChecking=no ${{ secrets.T.USER }}@${{ secrets.T_HOST }} -p ${{ secrets.T_PORT}} "echo Connected successfully"
