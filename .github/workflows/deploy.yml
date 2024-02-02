@@ -19,7 +19,7 @@ jobs:
     - name: SSH into Host and check connection
       run: |
         ssh -o StrictHostKeyChecking=no \
-            -i /path/to/your/private/key \
+            -i ${{ PH_PRIVATEPATH }} \
             ${{ secrets.PH_USER }}@${{ secrets.PH_HOST }} \
             -p ${{ secrets.PH_PORT }} \
             "echo Connected successfully"
