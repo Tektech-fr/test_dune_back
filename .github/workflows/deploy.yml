@@ -16,14 +16,10 @@ jobs:
     - name: Install SSH client
       run: sudo apt-get install openssh-client -y
 
-    - name: Set up SSH
-      uses: webfactory/ssh-agent@v0.5.3
-      with:
-        ssh-private-key: ${{ secrets.T_PRIVATEKEY }}
-
-    - name: Add SSH key to agent
-      run: echo "${{ secrets.SSH_PASSPHRASE }}" | ssh-add -
-    
     - name: SSH into Host and check connection
-      run: ssh -o StrictHostKeyChecking=no ${{ secrets.T.USER }}@${{ secrets.T_HOST }} -p ${{ secrets.T_PORT}} "echo Connected successfully"
-
+      run: |
+        ssh -o StrictHostKeyChecking=no \
+            -i /path/to/your/private/key \
+            ${{ secrets.PH_USER }}@${{ secrets.PH_HOST }} \
+            -p ${{ secrets.PH_PORT }} \
+            "echo Connected successfully"
