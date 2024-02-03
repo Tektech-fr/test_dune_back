@@ -16,6 +16,8 @@ jobs:
     - name: SSH into Host and check connection
       run: |
         ssh ${{ secrets.PH_USER }}@${{ secrets.PH_HOST }} \
-            -p ${{ secrets.PH_PORT }} && git pull origin production
+            -p ${{ secrets.PH_PORT }} 
+        cd /var/www
+        "pwd"
 
     
