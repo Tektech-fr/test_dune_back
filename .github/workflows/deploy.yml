@@ -13,13 +13,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Install SSH client
-      run: sudo apt-get install openssh-client -y
-
     - name: SSH into Host and check connection
       run: |
-        ssh -o StrictHostKeyChecking=no \
-            -i ${{ PH_PRIVATEPATH }} \
-            ${{ secrets.PH_USER }}@${{ secrets.PH_HOST }} \
+        ssh ${{ secrets.PH_USER }}@${{ secrets.PH_HOST }} \
             -p ${{ secrets.PH_PORT }} \
             "echo Connected successfully"
