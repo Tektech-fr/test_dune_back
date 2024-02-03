@@ -16,5 +16,11 @@ jobs:
     - name: SSH into Host and check connection
       run: |
         ssh ${{ secrets.PH_USER }}@${{ secrets.PH_HOST }} \
-            -p ${{ secrets.PH_PORT }} \
-            "echo Connected successfully"
+            -p ${{ secrets.PH_PORT }}
+            
+    - name: Use Node.js 20
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    
