@@ -17,9 +17,8 @@ jobs:
       with:
         script: |
           ssh ${{ secrets.PH_USER }}@${{ secrets.PH_HOST }} -p ${{ secrets.PH_PORT }}
-          cd /var/www
-          git pull origin production
-          npm install
-          npm run build
-
-    
+          touch toto.txt
+          # cd /var/www
+          # git pull origin production
+          # npm install
+          # npm run build
