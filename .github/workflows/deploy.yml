@@ -17,7 +17,14 @@ jobs:
       run: |
         ssh ${{ secrets.PH_USER }}@${{ secrets.PH_HOST }} \
             -p ${{ secrets.PH_PORT }} 
-        cd /var/www
-        "pwd"
+
+    - name: 📂 CD and PWD
+      uses: appleboy/ssh-action@master
+      with:
+        script: |
+          cd /var/www
+          git pull origin production
+          npm install
+          npm run build
 
     
