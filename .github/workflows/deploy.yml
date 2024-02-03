@@ -14,7 +14,6 @@ jobs:
       uses: actions/checkout@v2
 
     - name: 📂 CD and PWD
-      uses: appleboy/ssh-action@master
       with:
         script: |
           ssh ${{ secrets.PH_USER }}@${{ secrets.PH_HOST }} -p ${{ secrets.PH_PORT }}
