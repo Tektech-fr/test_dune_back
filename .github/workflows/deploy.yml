@@ -21,20 +21,7 @@ jobs:
     - name: install SSH client
       run: sudo apt install -y openssh-client
 
-    # - name: add SSH key to known hosts
-    #   run : |
-    #     mkdir -p ~/.ssh
-    #     ssh-keyscan -t ed25519 ${{ secrets.PH_HOST }} >> ~/.ssh/know_hosts
-
-    # - name: 📂 Sync Files
-    #   uses: SamKirkland/web-deploy@v1
-    #   with:
-    #     target-server: ${{ secrets.PH_HOST }}
-    #     remote-user: ${{ secrets.PH_USER }}
-    #     private-ssh-key: ${{ secrets.PH_PRIVATEKEY }}
-    #     destination-path: ${{ secrets.PH_PRIVATEPATH }}
-    #     ssh-port: ${{ secrets.PH_PORT }}
 
     - name: tunnel to host
       run: |
-        ssh -o StrictHostKeyChecking=no  ${{ secrets.PH_USER }}@${{ secrets.PH_HOST }} "cd ${{ secrets.PH_PRIVATEPATH }} && touch test.txt"
+        ssh -o StrictHostKeyChecking=no ${{ secrets.PH_USER }}@${{ secrets.PH_HOST }}:${{ secrets.PH_PORT }} "cd ${{ secrets.PH_PRIVATEPATH }} && touch test.txt"
