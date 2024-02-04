@@ -10,13 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+    # - name: Checkout repository
+    #   uses: actions/checkout@v4
 
-    - name: install node
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'
+    # - name: install node
+    #   uses: actions/setup-node@v3
+    #   with:
+    #     node-version: '20'
 
     - name: 📂 Sync Files
       uses: SamKirkland/web-deploy@v1
