@@ -10,19 +10,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # - name: Checkout repository
-    #   uses: actions/checkout@v4
+    - name: Checkout repository latest code
+      uses: actions/checkout@v4
 
-    # - name: install node
-    #   uses: actions/setup-node@v3
-    #   with:
-    #     node-version: '20'
-
-    - name: 📂 Sync Files
-      uses: SamKirkland/web-deploy@v1
+    - name: install node 20
+      uses: actions/setup-node@v3
       with:
-        target-server: ${{ secrets.PH_HOST }}
-        remote-user: ${{ secrets.PH_USER }}
-        private-ssh-key: ${{ secrets.PH_PRIVATEKEY }}
-        destination-path: ${{ secrets.PH_PRIVATEPATH }}
-        ssh-port: ${{ secrets.PH_PORT }}
+        node-version: '20'
+
+    - name: install SSH client
+      run: sudo apt install -y openssh-client
+
+    - name: add SSH key to known hosts
+      run : |
+        mkdir -p ~/.ssh
+        ssh-keyscan -t ed25519 ${{ secrets.PH_HOST }} >> ~/.ssh/know_hosts
+
+    # - name: 📂 Sync Files
+    #   uses: SamKirkland/web-deploy@v1
+    #   with:
+    #     target-server: ${{ secrets.PH_HOST }}
+    #     remote-user: ${{ secrets.PH_USER }}
+    #     private-ssh-key: ${{ secrets.PH_PRIVATEKEY }}
+    #     destination-path: ${{ secrets.PH_PRIVATEPATH }}
+    #     ssh-port: ${{ secrets.PH_PORT }}
+
+    - name: tunnel to host
+      run: |
+        ssh -o StrictHostKeyChecking=no -i ${{ secrets.PH_PRIVATEPATH }} ${{ secrets.PH_USER }}@${{ secrets.PH_HOST }} "cd ${{ secrets.PH_PRIVATEPATH }} && touch test.txt"
