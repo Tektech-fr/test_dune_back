@@ -24,4 +24,4 @@ jobs:
 
     - name: tunnel to host
       run: |
-        ssh -o StrictHostKeyChecking=no ${{ secrets.PH_USER }}@${{ secrets.PH_HOST }}:${{ secrets.PH_PORT }} "cd ${{ secrets.PH_PRIVATEPATH }} && touch test.txt"
+        ssh -o StrictHostKeyChecking=no ${{ secrets.PH_USER }}@${{ secrets.PH_HOST }} -p ${{ secrets.PH_PORT }} "cd ${{ secrets.PH_PRIVATEPATH }} && touch test.txt"
