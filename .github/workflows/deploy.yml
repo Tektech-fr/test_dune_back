@@ -24,5 +24,5 @@ jobs:
 
     - name: tunnel to host
       run: |
-        ssh ${{ secrets.PH_USER }}@${{ secrets.PH_HOST }} -p ${{ secrets.PH_PORT }}"
+        ssh ${{ secrets.PH_USER }}@${{ secrets.PH_HOST }} -p ${{ secrets.PH_PORT }}
         echo "gg ma gueule"
