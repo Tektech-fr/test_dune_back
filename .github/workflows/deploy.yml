@@ -17,12 +17,12 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: '20'
-      
-    - name: 📂 CD and PWD
-      script: |
-          ssh ${{ secrets.PH_USER }}@${{ secrets.PH_HOST }} -p ${{ secrets.PH_PORT }}
-          touch toto.txt
-          # cd /var/www
-          # git pull origin production
-          # npm install
-          # npm run build
+
+    - name: 📂 Sync Files
+      uses: SamKirkland/web-deploy@v1
+      with:
+        target-server: ${{ secrets.PH_HOST }}
+        remote-user: ${{ secrets.PH_USER }}
+        private-ssh-key: ${{ secrets.PH_PRIVATEKEY }}
+        destination-path: ${{ secrets.PH_PRIVATEPATH }}
+        ssh-port: ${{ secrets.PH_PORT }}
