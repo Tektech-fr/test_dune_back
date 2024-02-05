@@ -10,6 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: update node
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        
     - name: Checkout code
       uses: actions/checkout@v3
 
@@ -27,4 +32,4 @@ jobs:
         key: ${{ secrets.PH_PRIVATEKEY }}
         script: |
           cd ./sites
-          scp -r ${{ github.workspace }}/* ./
+          scp -r ${{ github.event.repository.owner.name }}@github.com:${{ github.event.repository.name }}/* ./
