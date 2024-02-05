@@ -27,6 +27,11 @@ jobs:
     - name: install SSH client
       run: sudo apt install -y openssh-client
 
+    - name: Debug secret
+      run: echo $PH_PORT
+      env:
+        PH_PORT: ${{ secrets.PH_PORT }}
+    
     - name: tunnel to host
       run: |
           mkdir -p ~/.ssh
