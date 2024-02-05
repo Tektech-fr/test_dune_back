@@ -32,4 +32,4 @@ jobs:
         key: ${{ secrets.PH_PRIVATEKEY }}
         script: |
           cd ./sites
-          scp -r ${{ github.event.repository.owner.name }}@github.com:${{ github.event.repository.name }}/* ./
+          scp -r git@github.com:${{ github.event.repository.owner.name }}/${{ github.event.repository.name }}.git ./
