@@ -23,5 +23,8 @@ jobs:
 
 
     - name: tunnel to host
-      run: |
-        ssh -tt ${{ secrets.PH_USER }}@${{ secrets.PH_HOST }} -p ${{ secrets.PH_PORT }} "mkdir toto"
+      uses: ./
+      with: 
+        key: ${{ secrets.PH_PRIVATEKEY }}
+        script:
+          ssh -tt ${{ secrets.PH_USER }}@${{ secrets.PH_HOST }} -p ${{ secrets.PH_PORT }} "mkdir toto"
