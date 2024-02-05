@@ -1,14 +1,20 @@
 name: Deploy to Host
 
+
 on:
   push:
     branches:
       - production
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    concurrency: 
+      group: production
+      cancel-in-progress: true
+      
     steps:
     - name: Checkout repository latest code
       uses: actions/checkout@v4
@@ -24,7 +30,7 @@ jobs:
     - name: tunnel to host
       run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.PH_PRIVATE_KEY }}" > ~/.ssh/tekOPEN
+          echo ${{ secrets.PH_PRIVATE_KEY }} > ~/.ssh/tekOPEN
           chmod 600 ~/.ssh/tekOPEN
           ssh-keyscan -H ${{ secrets.PH_HOST }} >> ~/.ssh/known_hosts
           
