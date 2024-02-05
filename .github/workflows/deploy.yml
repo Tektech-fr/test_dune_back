@@ -24,4 +24,12 @@ jobs:
 
     - name: tunnel to host
       run: |
-        ssh ${{ secrets.PH_USER }}@${{ secrets.PH_HOST }} -p ${{ secrets.PH_PORT }} "echo 'connection ok'"
+        ssh ${{ secrets.PH_USER }}@${{ secrets.PH_HOST }} -p ${{ secrets.PH_PORT }}
+        echo 'connection ok'
+        cd ${{ secrets.PRIVATEPATH }}
+        echo 'target back folder'
+        mkdir test
+        echo 'create a project folder'
+        cd test
+        echo 'init the folder with npm'
+        npm init
