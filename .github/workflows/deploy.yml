@@ -21,10 +21,17 @@ jobs:
     - name: install SSH client
       run: sudo apt install -y openssh-client
 
-
     - name: tunnel to host
-      uses: ./
-      with: 
-        key: ${{ secrets.PH_PRIVATEKEY }}
-        script:
-          ssh -tt ${{ secrets.PH_USER }}@${{ secrets.PH_HOST }} -p ${{ secrets.PH_PORT }} "mkdir toto"
+      run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.PH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.PH_HOST }} >> ~/.ssh/known_hosts
+          
+    - name: Deploy to VPS
+      run: |
+        ssh -o StrictHostKeyChecking=no ${{ secrets.PH_USER }}@${{ secrets.PH_HOST }} << EOF
+          cd ${{ secrets.PH_PRIVATEPATH }}
+          mkdir totoleBG
+        EOF
+       
