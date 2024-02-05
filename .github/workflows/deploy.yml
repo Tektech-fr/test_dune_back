@@ -4,26 +4,24 @@ on:
   push:
     branches:
       - production
+      
+  workflow_dispatch:
 
 jobs:
   deploy:
+    name: Deployment on remote host
     runs-on: ubuntu-latest
 
     steps:
-    - name: update node
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Setup SSH
+    - name: Setup SSH tunnel
       uses: webfactory/ssh-agent@v0.8.0
       with:
         ssh-private-key: ${{ secrets.PH_PRIVATEKEY }}
 
-    - name: SSH Command
+    - name: SSH commands
       uses: appleboy/ssh-action@master
       with:
         username: ${{ secrets.PH_USER }}
@@ -31,5 +29,7 @@ jobs:
         port: ${{ secrets.PH_PORT }}
         key: ${{ secrets.PH_PRIVATEKEY }}
         script: |
+          echo "Starting deployment..."
           cd ./sites
-          scp -r git@github.com:${{ github.event.repository.owner.name }}/${{ github.event.repository.name }}.git ./
+          git pull origin production
+          echo "Ending deployment..."
