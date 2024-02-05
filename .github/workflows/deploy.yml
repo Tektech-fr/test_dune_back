@@ -24,8 +24,8 @@ jobs:
     - name: tunnel to host
       run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.PH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+          echo "${{ secrets.PH_PRIVATE_KEY }}" > ~/.ssh/tekOPEN
+          chmod 600 ~/.ssh/tekOPEN
           ssh-keyscan -H ${{ secrets.PH_HOST }} >> ~/.ssh/known_hosts
           
     - name: Deploy to VPS
