@@ -1,30 +1,30 @@
-name: SSH Deploy
+
 
 on:
   push:
     branches:
       - production
-      
-  workflow_dispatch:
 
 jobs:
   deploy:
-    name: Deployment on remote host
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up SSH key
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.PH_PRIVATEKEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+    - name: Setup SSH
+      uses: webfactory/ssh-agent@v0.8.0
+      with:
+        ssh-private-key: ${{ secrets.PH_PRIVATEKEY }}
 
-    - name: SSH command
-      run: |
-        echo "Starting deployment..."
-        ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.PH_USER }}@${{ secrets.PH_HOST }} -p ${{ secrets.PH_PORT }} "cd /sites && git pull origin main"
-        echo "Deployment completed."
+    - name: SSH Command
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.PH_HOST }}
+        username: ${{ secrets.PH_USER }}
+        key: ${{ secrets.PH_PRIVATEKEY }}
+        port: ${{ secrets.PH_PORT }}
+        script: |
+          cd ${{ secrets.PH_PRIVATEPATH }}
+          mkdir toto_test
