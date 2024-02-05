@@ -27,4 +27,5 @@ jobs:
         port: ${{ secrets.PH_PORT }}
         script: |
           cd ${{ secrets.PH_PRIVATEPATH }}
-          mkdir toto_tes
+          git switch production
+          git pull
