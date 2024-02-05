@@ -28,7 +28,7 @@ jobs:
         echo 'connection ok'
         cd ${{ secrets.PRIVATEPATH }}
         echo 'target back folder'
-        mkdir test
+        mkdir test2
         echo 'create a project folder'
         cd test
         echo 'init the folder with npm'
