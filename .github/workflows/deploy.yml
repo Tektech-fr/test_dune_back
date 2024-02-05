@@ -1,48 +1,30 @@
-name: Deploy to Host
-
+name: SSH Deploy
 
 on:
   push:
     branches:
       - production
-  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    concurrency: 
-      group: production
-      cancel-in-progress: true
-      
     steps:
-    - name: Checkout repository latest code
-      uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-    - name: install node 20
-      uses: actions/setup-node@v3
+    - name: Setup SSH
+      uses: webfactory/ssh-agent@v0.5.3
       with:
-        node-version: '20'
+        ssh-private-key: ${{ secrets.PH_PRIVATEKEY }}
 
-    - name: install SSH client
-      run: sudo apt install -y openssh-client
-
-    - name: Debug secret
-      run: echo $PH_PORT
-      env:
-        PH_PORT: ${{ secrets.PH_PORT }}
-    
-    - name: tunnel to host
-      run: |
-          mkdir -p ~/.ssh
-          echo ${{ secrets.PH_PRIVATE_KEY }} > ~/.ssh/tekOPEN
-          chmod 600 ~/.ssh/tekOPEN
-          ssh-keyscan -H ${{ secrets.PH_HOST }} >> ~/.ssh/known_hosts
-          
-    - name: Deploy to VPS
-      run: |
-        ssh -o StrictHostKeyChecking=no ${{ secrets.PH_USER }}@${{ secrets.PH_HOST }} << EOF
-          cd ${{ secrets.PH_PRIVATEPATH }}
-          mkdir totoleBG
-        EOF
-       
+    - name: SSH Command
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.PH_HOST }}
+        username: ${{ secrets.PH_USER }}
+        key: ${{ secrets.PH_PRIVATEKEY }}
+        port: ${{ secrets.PH_PORT }}
+        script: |
+          cd ./sites
+          mkdir toto_test
