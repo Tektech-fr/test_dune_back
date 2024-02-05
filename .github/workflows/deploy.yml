@@ -21,10 +21,10 @@ jobs:
     - name: SSH Command
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.PH_HOST }}
         username: ${{ secrets.PH_USER }}
-        key: ${{ secrets.PH_PRIVATEKEY }}
+        host: ${{ secrets.PH_HOST }}
         port: ${{ secrets.PH_PORT }}
+        key: ${{ secrets.PH_PRIVATEKEY }}
         script: |
           cd ./sites
-          mkdir toto_test
+          scp -r ${{ github.workspace }}/* ./
