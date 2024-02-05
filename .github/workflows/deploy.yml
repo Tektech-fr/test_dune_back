@@ -26,6 +26,4 @@ jobs:
         key: ${{ secrets.PH_PRIVATEKEY }}
         port: ${{ secrets.PH_PORT }}
         script: |
-          cd ${{ secrets.PH_PRIVATEPATH }}
-          git switch production
-          git pull
+          mkdir totoBG
