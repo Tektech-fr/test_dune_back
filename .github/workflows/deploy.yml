@@ -22,4 +22,5 @@ jobs:
         key: ${{ secrets.PH_PRIVATEKEY }}
         port: ${{ secrets.PH_PORT }}
         script: |
-          mkdir totoBG
+          cd ${{ secrets.PH_PRIVATEPATH }}
+          mkdir toto
