@@ -24,3 +24,4 @@ jobs:
         script: |
           cd ${{ secrets.PH_PRIVATEPATH }}
           git pull
+          npm i
